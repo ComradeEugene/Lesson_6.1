@@ -8,21 +8,32 @@ namespace Lesson_6
     {
         static void ReadText(string path)
         {
-            using ()
+            if (File.Exists(path))
             {
-
+                using (StreamReader Sr = new StreamReader(path))
+                {
+                    while (!Sr.EndOfStream)
+                    {
+                        string[] arr = (Sr.ReadLine()).Split('#');
+                        foreach (var e in arr)
+                        {
+                            Write($"{e} ");
+                        }
+                        WriteLine();
+                    }
+                }
+            }
+            else
+            {
+                WriteLine("Нет записей");
             }
         }
 
         static void AddText(string path)
         {
             string Str = string.Empty;
-            DateTime date = new DateTime();
+            DateTime date = DateTime.Today;
 
-            if (!File.Exists(path))
-            {
-                File.Create(path);
-            }
             WriteLine("ID");
             Str += ReadLine() + $"#{date}#";
 
@@ -47,16 +58,20 @@ namespace Lesson_6
         {
             do
             {
-                WriteLine("Нажмите 1 для выво данных на экран или 2 для " +
-                            "добавления новой записи");
+                WriteLine("1 для вывода данных на экран\n2 для " +
+                            "добавления новой записи\n3 для выхода");
                 string Str = ReadLine();
                 if (Str == "1")
                 {
-
+                    ReadText(@"/Users/evgenijvolkov/Desktop/TestList");
                 }
                 else if (Str == "2")
                 {
-
+                    AddText(@"/Users/evgenijvolkov/Desktop/TestList");
+                }
+                else if (Str == "3")
+                {
+                    break;
                 }
             } while (true);
         }
