@@ -32,23 +32,64 @@ namespace Lesson_6
         static void AddText(string path)
         {
             string Str = string.Empty;
+            uint temp;
             DateTime date = DateTime.Today;
 
             WriteLine("ID");
-            Str += ReadLine() + $"#{date}#";
-
+            while (true)
+            {
+                if (uint.TryParse(ReadLine(), out temp))
+                {
+                    Str += temp + $"#{DateTime.Today}#";
+                    break;
+                }
+                else
+                {
+                    WriteLine("Не корректное значение");
+                }
+            }
             WriteLine("Ф.И.О.");
             Str += ReadLine() + "#";
 
             WriteLine("Возраст");
-            Str += ReadLine() + "#";
-
+            while (true)
+            {
+                if (uint.TryParse(ReadLine(), out temp))
+                {
+                    Str += temp + "#";
+                    break;
+                }
+                else
+                {
+                    WriteLine("Не корректное значение");
+                }
+            }
             WriteLine("Рост");
-            Str += ReadLine() + "#";
-
-            WriteLine("Дата рождения");
-            Str += ReadLine() + "#";
-
+            while (true)
+            {
+                if (uint.TryParse(ReadLine(), out temp))
+                {
+                    Str += temp + "#";
+                    break;
+                }
+                else
+                {
+                    WriteLine("Не корректное значение");
+                }
+            }
+            WriteLine("Дата рождения в формате дд.мм.гггг");
+            while (true)
+            {
+                if (DateTime.TryParse(ReadLine(), out date))
+                {
+                    Str += date.ToString("dd.mm.yyyy") + "#";
+                    break;
+                }
+                else
+                {
+                    WriteLine("Не корректное значение");
+                }
+            }
             WriteLine("Место рождения");
             Str += ReadLine() + "\n";
             File.AppendAllText(path, Str);
@@ -61,18 +102,21 @@ namespace Lesson_6
                 WriteLine("1 для вывода данных на экран\n2 для " +
                             "добавления новой записи\n3 для выхода");
                 string Str = ReadLine();
+                Clear();
                 if (Str == "1")
                 {
-                    ReadText(@"/Users/evgenijvolkov/Desktop/TestList");
+                    ReadText(@"TestList");
+                    ReadKey();
                 }
                 else if (Str == "2")
                 {
-                    AddText(@"/Users/evgenijvolkov/Desktop/TestList");
+                    AddText(@"TestList");
                 }
                 else if (Str == "3")
                 {
                     break;
                 }
+                Clear();
             } while (true);
         }
     }
